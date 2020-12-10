@@ -16,6 +16,7 @@ module.exports = (resolve, rootDir) => {
     globals: {
       "ts-jest": {
         babelConfig: {
+          plugins: ["babel-plugin-rewire-ts"],
           presets: [require.resolve("@babel/preset-env")]
         }
       }
