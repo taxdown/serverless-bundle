@@ -80,8 +80,7 @@ function resolveEntriesPath(entries) {
 function babelLoader() {
   const plugins = [
     "@babel/plugin-transform-runtime",
-    "@babel/plugin-proposal-class-properties",
-    "babel-plugin-rewire"
+    "@babel/plugin-proposal-class-properties"
   ];
 
   if (ENABLE_SOURCE_MAPS) {

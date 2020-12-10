@@ -60,6 +60,7 @@ module.exports = (resolve, rootDir) => {
     "watchPathIgnorePatterns",
     "moduleNameMapper"
   ];
+  const extendKeys = ["setupFiles"];
   if (overrides) {
     supportedKeys.forEach(key => {
       if (overrides.hasOwnProperty(key)) {

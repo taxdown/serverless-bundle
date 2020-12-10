@@ -4,7 +4,10 @@ const babelJest = require("babel-jest");
 
 module.exports = babelJest.createTransformer({
   presets: ["@babel/preset-env"],
-  plugins: ["@babel/plugin-proposal-class-properties", "babel-plugin-rewire"],
+  plugins: [
+    "@babel/plugin-proposal-class-properties",
+    "babel-plugin-rewire-ts"
+  ],
   babelrc: false,
   configFile: false
 });
