@@ -76,7 +76,7 @@ module.exports = (resolve, rootDir) => {
       }
     });
     extendKeys.forEach(key => {
-      if (extendKeys.hasOwnProperty(key)) {
+      if (overrides.hasOwnProperty(key)) {
         if (Array.isArray(config[key]) || typeof config[key] !== "object") {
           // for arrays or primitive types, append key
           config[key] = config[key].concat(overrides[key]);
