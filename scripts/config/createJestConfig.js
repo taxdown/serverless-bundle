@@ -17,7 +17,7 @@ module.exports = (resolve, rootDir) => {
       "ts-jest": {
         babelConfig: {
           plugins: ["babel-plugin-rewire-ts"],
-          presets: [require.resolve("@babel/preset-env")]
+          presets: [require.resolve("@babel/preset-typescript")]
         }
       }
     },
