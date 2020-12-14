@@ -16,6 +16,7 @@ module.exports = (resolve, rootDir) => {
     globals: {
       "ts-jest": {
         babelConfig: {
+          plugins: ["babel-plugin-rewire-ts"],
           presets: [require.resolve("@babel/preset-env")]
         }
       }
@@ -60,6 +61,7 @@ module.exports = (resolve, rootDir) => {
     "watchPathIgnorePatterns",
     "moduleNameMapper"
   ];
+  const extendKeys = ["setupFiles"];
   if (overrides) {
     supportedKeys.forEach(key => {
       if (overrides.hasOwnProperty(key)) {
@@ -74,6 +76,28 @@ module.exports = (resolve, rootDir) => {
         delete overrides[key];
       }
     });
+    extendKeys.forEach(key => {
+      if (overrides.hasOwnProperty(key)) {
+        if (Array.isArray(config[key]) || typeof config[key] !== "object") {
+          // for arrays or primitive types, append key
+          config[key] = config[key].concat(overrides[key]);
+        } else {
+          // for object types, not expected behavior
+          console.error(
+            chalk.red(
+              "\nUnexpected extend key value, serverless-bundle expected an array\n" +
+                "for this Jest option:\n\n" +
+                key +
+                ".\n\n"
+            )
+          );
+          process.exit(1);
+        }
+
+        delete overrides[key];
+      }
+    });
+
     const unsupportedKeys = Object.keys(overrides);
     if (unsupportedKeys.length) {
       const isOverridingSetupFile =
