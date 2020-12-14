@@ -28,6 +28,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run tests
+        run: npm i -g serverless
+
+      - name: Run tests
         run: npm run test
 
       - name: Publish NPM package
