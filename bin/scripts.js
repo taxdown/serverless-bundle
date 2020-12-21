@@ -12,6 +12,7 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
+const path = require('path');
 const spawn = require('cross-spawn');
 const args = process.argv.slice(2);
 
@@ -21,11 +22,10 @@ const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 switch (script) {
   case 'eslint': {
-    const result = spawn.sync(
-      'npx',
-      args.slice(scriptIndex + 1),
-      { stdio: 'inherit' }
-    );
+    const newArgs = args
+      .slice(scriptIndex + 1)
+      .concat(['--config', path.resolve(__dirname, '..', '.eslintrc.json')]);
+    const result = spawn.sync('npx', newArgs, { stdio: 'inherit' });
     process.exit(result.status);
     break;
   }

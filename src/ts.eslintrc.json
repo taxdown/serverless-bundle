@@ -8,8 +8,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:filenames-simple/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "import/prefer-default-export": 0,

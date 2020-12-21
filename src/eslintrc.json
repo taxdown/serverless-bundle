@@ -12,8 +12,7 @@
   "root": true,
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:filenames-simple/recommended"
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "import/prefer-default-export": 0,
