@@ -1,4 +1,4 @@
-const { runSlsCommand, clearNpmCache, errorRegex } = require("../helpers");
+const { runSlsCommand, clearNpmCache, errorRegex } = require('../helpers');
 
 beforeEach(async () => {
   await clearNpmCache(__dirname);
@@ -8,8 +8,8 @@ afterAll(async () => {
   await clearNpmCache(__dirname);
 });
 
-test("externals all option", async () => {
-  const result = await runSlsCommand(__dirname, "package");
+test('externals all option', async () => {
+  const result = await runSlsCommand(__dirname, 'package');
 
   expect(result).not.toMatch(errorRegex);
 

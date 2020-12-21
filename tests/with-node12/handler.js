@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 
 class User {
-  #counter = 0;
-
   increment() {
-    this.#counter++;
+    this.counter++;
   }
 
   get count() {
-    return this.#counter;
+    return this.counter;
   }
 }
 
@@ -20,7 +18,7 @@ export const hello = async (event, context) => {
     statusCode: 200,
     body: JSON.stringify({
       message: `Go Serverless v1.0! Your function executed successfully! Count is ${user.count}`,
-      input: event
-    })
+      input: event,
+    }),
   };
 };
