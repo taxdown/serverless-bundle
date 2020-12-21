@@ -1,4 +1,4 @@
-import { hi } from "@my-org/some-lib/index";
+import { hi } from '@my-org/some-lib/index';
 
 export const hello = async (event: any) => {
   return {
