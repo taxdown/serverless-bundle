@@ -20,10 +20,10 @@ const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 switch (script) {
-  case 'lint': {
+  case 'eslint': {
     const result = spawn.sync(
-      'node',
-      nodeArgs.concat(require.resolve('../scripts/' + script)).concat(args.slice(scriptIndex + 1)),
+      'npx',
+      args.slice(scriptIndex + 1),
       { stdio: 'inherit' }
     );
     process.exit(result.status);
