@@ -22,10 +22,19 @@ const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 switch (script) {
   case 'eslint': {
-    const newArgs = args
+    // Lint js files first
+    let newArgs = args
       .slice(scriptIndex + 1)
-      .concat(['--config', path.resolve(__dirname, '..', '.eslintrc.json')]);
-    const result = spawn.sync('npx', newArgs, { stdio: 'inherit' });
+      .concat(['--config', path.resolve(__dirname, '..', 'src', 'eslintrc.json'), '--ext', 'js']);
+    let result = spawn.sync('npx', newArgs, { stdio: 'inherit' });
+    if (result.status) {
+      process.exit(result.status);
+    }
+    // Lint ts files after
+    newArgs = args
+      .slice(scriptIndex + 1)
+      .concat(['--config', path.resolve(__dirname, '..', 'src', 'ts.eslintrc.json'), '--ext', 'ts']);
+    result = spawn.sync('npx', newArgs, { stdio: 'inherit' });
     process.exit(result.status);
     break;
   }

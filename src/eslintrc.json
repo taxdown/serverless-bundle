@@ -9,10 +9,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["prettier", "unicorn"],
   "root": true,
   "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
+    "eslint:recommended"
   ],
   "rules": {
     "import/prefer-default-export": 0,
@@ -24,6 +24,12 @@
         "singleQuote": true,
         "tabWidth": 2,
         "trailingComma": "es5"
+      }
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "camelCase"
       }
     ]
   },

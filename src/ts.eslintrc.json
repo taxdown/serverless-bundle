@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier", "unicorn"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -12,7 +12,22 @@
   ],
   "rules": {
     "import/prefer-default-export": 0,
-    "no-console": "off"
+    "no-console": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 100,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5"
+      }
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "camelCase"
+      }
+    ]
   },
   "overrides": [
     {

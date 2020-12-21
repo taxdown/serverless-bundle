@@ -52,6 +52,7 @@
     "eslint-config-prettier": "^7.1.0",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-unicorn": "^24.0.0",
     "eslint-webpack-plugin": "^2.4.1",
     "fork-ts-checker-webpack-plugin": "^4.0.1",
     "graphql": "^14.6.0",
