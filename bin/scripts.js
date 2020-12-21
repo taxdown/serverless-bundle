@@ -15,19 +15,24 @@ process.on('unhandledRejection', err => {
 const spawn = require('cross-spawn');
 const args = process.argv.slice(2);
 
-const scriptIndex = args.findIndex(
-  x => x === 'test'
-);
+const scriptIndex = args.findIndex(x => x === 'test');
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 switch (script) {
+  case 'lint': {
+    const result = spawn.sync(
+      'node',
+      nodeArgs.concat(require.resolve('../scripts/' + script)).concat(args.slice(scriptIndex + 1)),
+      { stdio: 'inherit' }
+    );
+    process.exit(result.status);
+    break;
+  }
   case 'test': {
     const result = spawn.sync(
       'node',
-      nodeArgs
-        .concat(require.resolve('../scripts/' + script))
-        .concat(args.slice(scriptIndex + 1)),
+      nodeArgs.concat(require.resolve('../scripts/' + script)).concat(args.slice(scriptIndex + 1)),
       { stdio: 'inherit' }
     );
     if (result.signal) {
