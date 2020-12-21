@@ -1,4 +1,5 @@
-import redis from "redis"; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import redis from "redis";
 
 export const hello = async (event, context) => {
   return {

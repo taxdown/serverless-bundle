@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import sorted from "is-sorted";
 
 export const hello = async (event, context) => {

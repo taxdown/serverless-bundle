@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as Knex from "knex";
 
 function getConnection() {

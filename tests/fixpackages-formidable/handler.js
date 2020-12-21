@@ -1,4 +1,5 @@
-import formidable from "formidable"; // eslint-disable-line
+/* eslint-disable no-unused-vars */
+import formidable from "formidable";
 
 export const hello = (event, context) => {
   return {

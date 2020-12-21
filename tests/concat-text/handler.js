@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 export const hello = async (event, context) => {
   return {
     statusCode: 200,

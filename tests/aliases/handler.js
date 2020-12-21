@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { doSomething } from "@my-org/some-lib";
 
 export const hello = async (event, context) => {

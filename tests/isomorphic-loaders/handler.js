@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import "./assets/style.css";
 import "./assets/style.scss";
 import "./assets/react.png";
