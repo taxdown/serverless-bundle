@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const slsw = require('serverless-webpack');
@@ -7,12 +8,12 @@ const ConcatTextPlugin = require('concat-text-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 const config = require('./config');
 
 const eslintConfig = require('./eslintrc.json');
-const ignoreWarmupPlugin = require('./ignoreWarmUpPlugin');
+const eslintTsConfig = require('./ts.eslintrc.json');
+const ignoreWarmupPlugin = require('./ignore-warmup-plugin');
 
 const isLocal = slsw.lib.webpack.isLocal;
 
@@ -28,6 +29,7 @@ const rawFileExtensions = config.options.rawFileExtensions;
 const fixPackages = convertListToObject(config.options.fixPackages);
 const tsConfigPath = path.resolve(servicePath, config.options.tsConfig);
 
+const ENABLE_TYPESCRIPT = fs.existsSync(tsConfigPath);
 const ENABLE_STATS = config.options.stats;
 const ENABLE_SOURCE_MAPS = config.options.sourcemaps;
 const ENABLE_CACHING = isLocal ? config.options.caching : false;
@@ -87,10 +89,20 @@ function babelLoader() {
   };
 }
 
+function eslintLoader() {
+  return {
+    loader: 'eslint-loader',
+    options: {
+      baseConfig: eslintConfig,
+    },
+  };
+}
+
 function tsLoader() {
   return {
     loader: 'ts-loader',
     options: {
+      projectReferences: true,
       transpileOnly: true,
       configFile: tsConfigPath,
       experimentalWatchApi: true,
@@ -145,17 +157,21 @@ function loaders() {
     ],
   };
 
-  loaders.rules.push({
-    test: /\.ts$/,
-    use: [babelLoader(), tsLoader()],
-    exclude: [
-      [
-        path.resolve(servicePath, 'node_modules'),
-        path.resolve(servicePath, '.serverless'),
-        path.resolve(servicePath, '.webpack'),
+  if (ENABLE_TYPESCRIPT) {
+    loaders.rules.push({
+      test: /\.ts$/,
+      use: [babelLoader(), tsLoader()],
+      exclude: [
+        [
+          path.resolve(servicePath, 'node_modules'),
+          path.resolve(servicePath, '.serverless'),
+          path.resolve(servicePath, '.webpack'),
+        ],
       ],
-    ],
-  });
+    });
+  }
+
+  loaders.rules[0].use.push(eslintLoader());
 
   if (rawFileExtensions && rawFileExtensions.length) {
     const rawFileRegex = `${rawFileExtensions.map(rawFileExt => `\\.${rawFileExt}`).join('|')}$`;
@@ -172,19 +188,19 @@ function loaders() {
 function plugins() {
   const plugins = [];
 
-  const eslintPluginOptions = {
-    baseConfig: eslintConfig,
-  };
-  plugins.push(new ESLintPlugin(eslintPluginOptions));
-
-  const forkTsCheckerWebpackOptions = {
-    tsconfig: tsConfigPath,
-    eslint: true,
-    eslintOptions: {
-      baseConfig: eslintPluginOptions,
-    },
-  };
-  plugins.push(new ForkTsCheckerWebpackPlugin(forkTsCheckerWebpackOptions));
+  if (ENABLE_TYPESCRIPT) {
+    const forkTsCheckerWebpackOptions = {
+      typescript: {
+        configFile: tsConfigPath,
+        build: true,
+      },
+      eslint: {
+        files: path.join(servicePath, '**/*.ts'),
+        options: { baseConfig: eslintTsConfig },
+      },
+    };
+    plugins.push(new ForkTsCheckerWebpackPlugin(forkTsCheckerWebpackOptions));
+  }
 
   if (ENABLE_CACHING) {
     plugins.push(
@@ -240,12 +256,14 @@ function plugins() {
 
 function resolvePlugins() {
   const plugins = [];
-  plugins.push(
-    new TsconfigPathsPlugin({
-      configFile: tsConfigPath,
-      extensions: extensions,
-    })
-  );
+  if (ENABLE_TYPESCRIPT) {
+    plugins.push(
+      new TsconfigPathsPlugin({
+        configFile: tsConfigPath,
+        extensions: extensions,
+      })
+    );
+  }
   return plugins;
 }
 

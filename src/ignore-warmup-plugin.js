@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 

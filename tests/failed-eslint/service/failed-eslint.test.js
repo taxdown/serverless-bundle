@@ -14,7 +14,8 @@ test("check eslint", async () => {
   const eslintErrorString = "no-unused-vars";
 
   try {
-    await runSlsCommand(__dirname);
+    const result = await runSlsCommand(__dirname);
+    console.log(result)
   } catch (err) {
     expect(err.stdout).toContain(eslintErrorString);
   }

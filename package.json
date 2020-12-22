@@ -24,17 +24,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnomalyInnovations/serverless-bundle.git"
+    "url": "https://github.com/taxdown/serverless-bundle.git"
   },
-  "author": "Jay V <air@live.ca>",
-  "license": "MIT",
+  "author": "TAXDOWN S.L.",
+  "license": "UNLICENSED",
   "dependencies": {
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-env": "^7.5.4",
     "@babel/runtime": "^7.5.4",
-    "@taxdown/eslint-config": "^0.1.8",
+    "@taxdown/eslint-config": "^0.1.10",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^26.5.2",
     "babel-loader": "^8.0.6",
@@ -48,8 +48,8 @@
     "css-loader": "^3.5.2",
     "dotenv": "^8.2.0",
     "eslint": "^7.16.0",
-    "eslint-webpack-plugin": "^2.4.1",
-    "fork-ts-checker-webpack-plugin": "^4.0.1",
+    "eslint-loader": "^4.0.2",
+    "fork-ts-checker-webpack-plugin": "^6.0.8",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "hard-source-webpack-plugin": "^0.13.1",
