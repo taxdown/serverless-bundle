@@ -1,19 +1,20 @@
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+/* eslint-disable unicorn/filename-case */
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const config = require("./config");
+const config = require('./config');
 
 module.exports = function(webpackConfig) {
-  if (webpackConfig.entry["_warmup/index"]) {
-    delete webpackConfig.entry["_warmup/index"];
+  if (webpackConfig.entry['_warmup/index']) {
+    delete webpackConfig.entry['_warmup/index'];
     webpackConfig.plugins.push(
       new CopyWebpackPlugin({
         patterns: [
           {
-            from: path.join(config.servicePath, "_warmup"),
-            to: "_warmup"
-          }
-        ]
+            from: path.join(config.servicePath, '_warmup'),
+            to: '_warmup',
+          },
+        ],
       })
     );
   }
