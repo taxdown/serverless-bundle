@@ -29,6 +29,7 @@ const rawFileExtensions = config.options.rawFileExtensions;
 const fixPackages = convertListToObject(config.options.fixPackages);
 const tsConfigPath = path.resolve(servicePath, config.options.tsConfig);
 
+const ENABLE_TSCHECKER = !config.options.disableForkTsChecker;
 const ENABLE_TYPESCRIPT = fs.existsSync(tsConfigPath);
 const ENABLE_STATS = config.options.stats;
 const ENABLE_SOURCE_MAPS = config.options.sourcemaps;
@@ -103,7 +104,7 @@ function tsLoader() {
     loader: 'ts-loader',
     options: {
       projectReferences: true,
-      transpileOnly: true,
+      transpileOnly: ENABLE_TSCHECKER,
       configFile: tsConfigPath,
       experimentalWatchApi: true,
     },
@@ -188,7 +189,7 @@ function loaders() {
 function plugins() {
   const plugins = [];
 
-  if (ENABLE_TYPESCRIPT) {
+  if (ENABLE_TYPESCRIPT && ENABLE_TSCHECKER) {
     const forkTsCheckerWebpackOptions = {
       typescript: {
         configFile: tsConfigPath,
