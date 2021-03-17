@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint scripts src",
     "jest-clear-cache": "jest --clearCache",
-    "test": "jest --no-watchman"
+    "test": "jest --no-watchman --runInBand"
   },
   "bin": {
     "serverless-bundle": "./bin/scripts.js"
