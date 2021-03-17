@@ -35,6 +35,8 @@
     "@babel/preset-env": "^7.5.4",
     "@babel/runtime": "^7.5.4",
     "@taxdown/eslint-config": "^0.1.11",
+    "@types/jest": "^26.0.21",
+    "@types/node": "^14.14.35",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^26.5.2",
     "babel-loader": "^8.0.6",
@@ -56,6 +58,7 @@
     "ignore-loader": "^0.1.2",
     "isomorphic-style-loader": "^5.1.0",
     "jest": "^26.5.3",
+    "nock": "^13.0.11",
     "node-sass": "^4.14.1",
     "pkg-up": "^3.1.0",
     "prettier": "^1.18.2",
@@ -73,7 +76,6 @@
     "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.3",
     "husky": "^3.0.8"
   },
   "husky": {
